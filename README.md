@@ -23,3 +23,4 @@ OpenJDK 64-Bit Server VM Corretto-11.0.3.7.1 (build 11.0.3+7-LTS, mixed mode)
 ## 参考情報
 
 * [gitignore テンプレート](https://github.com/github/gitignore)
+* [Gradleユーザーガイド日本語版](http://gradle.monochromeroad.com/docs/userguide/userguide_single.html)
