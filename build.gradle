@@ -1,17 +1,42 @@
 plugins {
-    id 'java'
+  id 'java'
+  id 'com.github.sherter.google-java-format' version '0.8'
+  id 'checkstyle'
+  id "com.github.spotbugs" version "3.0.0"
 }
+
+File tollSettingsDirectory = new File("${rootProject.projectDir}/config/")
 
 group 'org.example'
 version '1.0-SNAPSHOT'
 
 //noinspection GroovyUnusedAssignment
-sourceCompatibility = 1.8
+sourceCompatibility = 1.11
 
 repositories {
-    mavenCentral()
+  mavenCentral()
 }
 
 dependencies {
-    testImplementation group: 'junit', name: 'junit', version: '4.12'
+  implementation "org.slf4j:slf4j-api:1.7.30"
+  testImplementation "org.slf4j:slf4j-api:1.7.30"
+  runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
+  testRuntimeOnly "ch.qos.logback:logback-classic:1.2.3"
+
+  testImplementation "org.junit.jupiter:junit-jupiter-api:5.6.0"
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.6.0"
+}
+
+test {
+  useJUnitPlatform()
+}
+
+checkstyle {
+  toolVersion = '8.29'
+  configFile = rootProject.file(new File(tollSettingsDirectory.toString(), "checkstyle/checkstyle.xml").toString())
+}
+
+spotbugs {
+  toolVersion = "3.1.12"
+  excludeFilter = rootProject.file(new File(tollSettingsDirectory.toString(), "spotbugs/exclude_filter.xml").toString())
 }
