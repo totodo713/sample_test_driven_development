@@ -53,3 +53,9 @@ jacocoTestReport {
 }
 jacocoTestReport.shouldRunAfter(test)
 
+jar {
+  manifest {
+    attributes "Main-Class" : "HelloWorld" // フルパッケージ名.クラス名
+  }
+}
+
