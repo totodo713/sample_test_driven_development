@@ -1,18 +1,26 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import org.junit.jupiter.api.Assertions;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 @DisplayName("HelloWorld")
-public class HelloWorldTest {
+class HelloWorldTest {
   private HelloWorld target;
 
+  @TestInstance(PER_CLASS)
   @DisplayName("コンストラクタ")
   @Nested
-  public class HelloWorldConstructorTest {
+  class HelloWorldConstructorTest {
 
     @DisplayName("デフォルトコンストラクタ")
     @Test
@@ -20,28 +28,31 @@ public class HelloWorldTest {
       var actual = new HelloWorld();
 
       var expected = "class HelloWorld";
-      Assertions.assertEquals(expected, actual.getClass().toString());
+      assertEquals(expected, actual.getClass().toString());
       expected = "Hello, World!";
-      Assertions.assertEquals(expected, actual.getMessage());
+      assertEquals(expected, actual.getMessage());
     }
 
     @DisplayName("メッセージ指定コンストラクタ")
-    @Test
-    void executeTest2() {
-      var input = "input";
-
+    @ParameterizedTest
+    @MethodSource("inputAndMessageProvider")
+    void executeTest2(String input, String message) {
       var actual = new HelloWorld(input);
 
       var expected = "class HelloWorld";
-      Assertions.assertEquals(expected, actual.getClass().toString());
-      expected = input;
-      Assertions.assertEquals(expected, actual.getMessage());
+      assertEquals(expected, actual.getClass().toString());
+      expected = message;
+      assertEquals(expected, actual.getMessage());
+    }
+
+    Stream<Arguments> inputAndMessageProvider() {
+      return Stream.of(Arguments.of(null, null), Arguments.of("input", "input"));
     }
   }
 
   @DisplayName("execute()")
   @Nested
-  public class HelloWorldExecuteTest {
+  class HelloWorldExecuteTest {
 
     ByteArrayOutputStream out;
 
@@ -58,7 +69,7 @@ public class HelloWorldTest {
       target.execute();
       var actual = out.toString();
       var expected = "Hello, World!\n";
-      Assertions.assertEquals(expected, actual);
+      assertEquals(expected, actual);
     }
 
     @DisplayName("inputを出力すること")
@@ -69,7 +80,7 @@ public class HelloWorldTest {
       target.execute();
       var actual = out.toString();
       var expected = input + "\n";
-      Assertions.assertEquals(expected, actual);
+      assertEquals(expected, actual);
     }
   }
 }
