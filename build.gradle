@@ -54,6 +54,16 @@ spotbugsMain {
     }
   }
 }
+spotbugsTest {
+  reports {
+    xml.enabled = false
+    html {
+      enabled = true
+      destination = file("${buildDir}/reports/spotbugs/test.html")
+      stylesheet = 'fancy-hist.xsl'
+    }
+  }
+}
 
 jacoco {
   toolVersion = "0.8.5"
