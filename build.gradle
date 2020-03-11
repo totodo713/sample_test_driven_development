@@ -41,6 +41,18 @@ checkstyle {
 spotbugs {
   toolVersion = "3.1.12"
   excludeFilter = rootProject.file(new File(tollSettingsDirectory.toString(), "spotbugs/exclude_filter.xml").toString())
+
+}
+
+spotbugsMain {
+  reports {
+    xml.enabled = false
+    html {
+      enabled = true
+      destination = file("${buildDir}/reports/spotbugs/main.html")
+      stylesheet = 'fancy-hist.xsl'
+    }
+  }
 }
 
 jacoco {
@@ -56,7 +68,7 @@ jacocoTestReport.shouldRunAfter(test)
 
 jar {
   manifest {
-    attributes "Main-Class" : "HelloWorld" // フルパッケージ名.クラス名
+    attributes "Main-Class": "HelloWorld" // フルパッケージ名.クラス名
   }
 }
 
