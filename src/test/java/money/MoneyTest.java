@@ -13,6 +13,16 @@ import org.junit.jupiter.api.TestInstance;
 public class MoneyTest {
 
   @Test
+  @DisplayName("等価性比較")
+  public void testEquality() {
+    assertEquals(Money.dollar(5), Money.dollar(5));
+    assertNotEquals(Money.dollar(5), Money.dollar(6));
+    assertEquals(Money.franc(5), Money.franc(5));
+    assertNotEquals(Money.franc(5), Money.franc(6));
+    assertNotEquals(Money.dollar(5), Money.franc(5));
+  }
+
+  @Test
   @DisplayName("掛け算")
   public void testMultiplication() {
     Money five = Money.dollar(5);
@@ -21,14 +31,14 @@ public class MoneyTest {
   }
 
   @Test
-  @DisplayName("等価性比較")
-  public void testEquality() {
-    assertEquals(Money.dollar(5), Money.dollar(5));
-    assertNotEquals(Money.dollar(5), Money.dollar(6));
+  @DisplayName("通貨")
+  public void testCurrency() {
+    assertEquals("USD", Money.dollar(1).currency());
+    assertEquals("CHF", Money.franc(1).currency());
   }
 
   @TestInstance(PER_CLASS)
-  @DisplayName("フラン")
+  @DisplayName("フランテスト")
   @Nested
   class FrancTest {
 
@@ -38,14 +48,6 @@ public class MoneyTest {
       Money five = Money.franc(5);
       assertEquals(Money.franc(5 * 2), five.times(2));
       assertEquals(Money.franc(5 * 3), five.times(3));
-    }
-
-    @Test
-    @DisplayName("等価性比較")
-    public void testEquality() {
-      assertEquals(Money.franc(5), Money.franc(5));
-      assertNotEquals(Money.franc(5), Money.franc(6));
-      assertNotEquals(Money.dollar(5), Money.franc(5));
     }
   }
 }
