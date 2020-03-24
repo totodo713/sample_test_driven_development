@@ -37,6 +37,12 @@ public class MoneyTest {
     assertEquals("CHF", Money.franc(1).currency());
   }
 
+  @Test
+  @DisplayName("異なる通貨クラスの等価性")
+  public void testDifferentClassEquality(){
+    assertEquals(new Money(10, "CHF"), new Franc(10, "CHF"));
+  }
+
   @TestInstance(PER_CLASS)
   @DisplayName("フランテスト")
   @Nested
