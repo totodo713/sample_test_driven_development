@@ -9,7 +9,7 @@ class Sum implements Expression {
     this.augend = augend;
   }
 
-  public Money exchange(String to) {
+  public Money exchange(Bank bank, String to) {
     int amount = augend.amount + addend.amount;
     return new Money(amount, to);
   }

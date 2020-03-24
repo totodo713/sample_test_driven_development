@@ -2,9 +2,12 @@ package money;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 @DisplayName("通貨テスト")
 public class MoneyTest {
@@ -67,5 +70,32 @@ public class MoneyTest {
     Bank bank = new Bank();
     Money result = bank.exchange(Money.dollar(1), "USD");
     assertEquals(Money.dollar(1), result);
+  }
+
+  @Test
+  @DisplayName("Moneyの別な通貨への換算")
+  public void testReduceMoneyDifferentCurrency() {
+    Bank bank = new Bank();
+    bank.addRate("CHF", "USD", 2);
+    Money result = bank.exchange(Money.franc(2), "USD");
+    assertEquals(Money.dollar(1), result);
+  }
+
+  @Test
+  @DisplayName("変換レートが同一の場合")
+  public void testIdentityRate() {
+    assertEquals(1, new Bank().rate("USD", "USD"));
+  }
+
+  @TestInstance(PER_CLASS)
+  @DisplayName("学習テスト")
+  @Nested
+  class LearningTest {
+
+    @Test
+    @DisplayName("配列の等価性比較の確認")
+    public void testArrayEquals() {
+      assertNotEquals(new Object[] {"abc"}, new Object[] {"abc"});
+    }
   }
 }
