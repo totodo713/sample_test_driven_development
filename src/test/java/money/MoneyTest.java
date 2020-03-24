@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -39,6 +38,13 @@ public class MoneyTest {
       Franc five = new Franc(5);
       assertEquals(new Franc(5 * 2), five.times(2));
       assertEquals(new Franc(5 * 3), five.times(3));
+    }
+
+    @Test
+    @DisplayName("等価性比較")
+    public void testEquality() {
+      assertEquals(new Franc(5), new Franc(5));
+      assertNotEquals(new Franc(5), new Franc(6));
     }
   }
 }
