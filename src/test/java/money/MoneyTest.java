@@ -15,16 +15,16 @@ public class MoneyTest {
   @Test
   @DisplayName("掛け算")
   public void testMultiplication() {
-    Dollar five = new Dollar(5);
-    assertEquals(new Dollar(5 * 2), five.times(2));
-    assertEquals(new Dollar(5 * 3), five.times(3));
+    Money five = Money.dollar(5);
+    assertEquals(Money.dollar(5 * 2), five.times(2));
+    assertEquals(Money.dollar(5 * 3), five.times(3));
   }
 
   @Test
   @DisplayName("等価性比較")
   public void testEquality() {
-    assertEquals(new Dollar(5), new Dollar(5));
-    assertNotEquals(new Dollar(5), new Dollar(6));
+    assertEquals(Money.dollar(5), Money.dollar(5));
+    assertNotEquals(Money.dollar(5), Money.dollar(6));
   }
 
   @TestInstance(PER_CLASS)
@@ -35,17 +35,17 @@ public class MoneyTest {
     @Test
     @DisplayName("掛け算")
     public void testMultiplication() {
-      Franc five = new Franc(5);
-      assertEquals(new Franc(5 * 2), five.times(2));
-      assertEquals(new Franc(5 * 3), five.times(3));
+      Money five = Money.franc(5);
+      assertEquals(Money.franc(5 * 2), five.times(2));
+      assertEquals(Money.franc(5 * 3), five.times(3));
     }
 
     @Test
     @DisplayName("等価性比較")
     public void testEquality() {
-      assertEquals(new Franc(5), new Franc(5));
-      assertNotEquals(new Franc(5), new Franc(6));
-      assertNotEquals(new Dollar(5), new Franc(5));
+      assertEquals(Money.franc(5), Money.franc(5));
+      assertNotEquals(Money.franc(5), Money.franc(6));
+      assertNotEquals(Money.dollar(5), Money.franc(5));
     }
   }
 }
