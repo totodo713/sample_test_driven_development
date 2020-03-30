@@ -87,6 +87,17 @@ public class MoneyTest {
     assertEquals(1, new Bank().rate("USD", "USD"));
   }
 
+  @Test
+  @DisplayName("複数の通貨の足し算")
+  public void testMixedAddition() {
+    Expression fiveBucks = Money.dollar(5);
+    Expression tenFrancs = Money.franc(10);
+    Bank bank = new Bank();
+    bank.addRate("CHF", "USD", 2);
+    Money result = bank.exchange(fiveBucks.plus(tenFrancs), "USD");
+    assertEquals(Money.dollar(10), result);
+  }
+
   @TestInstance(PER_CLASS)
   @DisplayName("学習テスト")
   @Nested

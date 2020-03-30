@@ -1,16 +1,21 @@
 package money;
 
 class Sum implements Expression {
-  Money addend;
-  Money augend;
+  Expression addend;
+  Expression augend;
 
-  Sum(Money addend, Money augend) {
+  Sum(Expression addend, Expression augend) {
     this.addend = addend;
     this.augend = augend;
   }
 
   public Money exchange(Bank bank, String to) {
-    int amount = augend.amount + addend.amount;
+    int amount = augend.exchange(bank, to).amount + addend.exchange(bank, to).amount;
     return new Money(amount, to);
+  }
+
+  @Override
+  public Expression plus(Expression addend) {
+    return null;
   }
 }
