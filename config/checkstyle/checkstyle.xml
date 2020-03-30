@@ -45,6 +45,9 @@
     </module>
 
     <module name="TreeWalker">
+        <module name="CyclomaticComplexity">
+            <property name="max" value="10"/>
+        </module>
         <module name="OuterTypeFilename"/>
         <module name="IllegalTokenText">
             <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
