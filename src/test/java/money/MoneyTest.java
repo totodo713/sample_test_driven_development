@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -96,6 +97,30 @@ public class MoneyTest {
     bank.addRate("CHF", "USD", 2);
     Money result = bank.exchange(fiveBucks.plus(tenFrancs), "USD");
     assertEquals(Money.dollar(10), result);
+  }
+
+  @Test
+  @DisplayName("Sum足し算実装")
+  public void testSumPlusMoney() {
+    Expression fiveBucks = Money.dollar(5);
+    Expression tenFrancs = Money.franc(10);
+    Bank bank = new Bank();
+    bank.addRate("CHF", "USD", 2);
+    Expression sum = new Sum(fiveBucks, tenFrancs).plus(fiveBucks);
+    Money result = bank.exchange(sum, "USD");
+    assertEquals(Money.dollar(15), result);
+  }
+
+  @Test
+  @DisplayName("Sum掛け算実装")
+  public void testSumTimes() {
+    Expression fiveBucks = Money.dollar(5);
+    Expression tenFrancs = Money.franc(10);
+    Bank bank = new Bank();
+    bank.addRate("CHF", "USD", 2);
+    Expression sum = new Sum(fiveBucks, tenFrancs).times(2);
+    Money result = bank.exchange(sum, "USD");
+    assertEquals(Money.dollar(20), result);
   }
 
   @TestInstance(PER_CLASS)
